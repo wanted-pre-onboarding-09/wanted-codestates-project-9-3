@@ -1,11 +1,14 @@
 import React from 'react';
+import OptionsItem from './components/OptionsItem';
 
 function App() {
   return (
     <>
-      <p>테스트</p>
-      <p>마지막 과제 야호</p>
-      <p>모두 파이팅</p>
+      <OptionsItem name="테스트" emoji="🚀" />
+      <OptionsItem name="테스트" emoji="📷" />
+      <OptionsItem name="테스트" emoji="🧐" />
+      <OptionsItem name="테스트" emoji="🛎" />
+      <OptionsItem name="테스트" emoji="👩‍💻" />
     </>
   );
 }
