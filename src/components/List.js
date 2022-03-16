@@ -48,16 +48,10 @@ const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-<<<<<<< Updated upstream
   border: 1px solid #bfbfbf;
   width: ${({ width }) => (width === '' ? '250px' : `${width}px`)};
   height: ${({ height }) => (height === '' ? '300px' : `${height}px`)};
   border: 1px solid black;
-=======
-  width: 100%;
-  height: 300px;
-  border: 1px solid #bfbfbf;
->>>>>>> Stashed changes
   border-radius: 10px;
 `;
 
