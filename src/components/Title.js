@@ -14,6 +14,6 @@ const TitleContainer = styled.div`
   position: sticky;
   font-size: 24px;
   font-weight: bold;
-  background-color: white;
-  border-radius: 10px;
+  border-bottom: 1px solid #bfbfbf;
+  background-color: rgba(255, 255, 255, 0);
 `;
