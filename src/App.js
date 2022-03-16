@@ -34,6 +34,7 @@ function App() {
 export default App;
 
 const SelectorWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;

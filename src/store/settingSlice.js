@@ -7,8 +7,8 @@ const initialState = {
   itemSize: 'XS',
 
   dashboardSize: {
-    width: '250',
-    height: '300',
+    width: '',
+    height: '',
   },
   title: true,
   titleInput: { available: 'available options', selected: 'selected options' },
@@ -26,7 +26,6 @@ const settingSlice = createSlice({
       state.itemSize = action.payload;
     },
     changeTitle(state, action) {
-      console.log(action.payload);
       // eslint-disable-next-line no-param-reassign
       state.titleInput[action.payload.titleType] = action.payload.value;
     },

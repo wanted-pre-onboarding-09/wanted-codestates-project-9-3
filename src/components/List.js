@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import Title from './Title';
 import EmojiMenus from '../data/EmojiMock';
 import OptionsItem from './OptionsItem';
 import Counter from './Counter';
 
 function List({ options, title }) {
+  const { width, height } = useSelector((state) => state.setting.dashboardSize);
   return (
-    <ListcContainer>
+    <ListContainer width={width} height={height}>
       <Title title={title} />
       <ListBox>
         {options
@@ -18,7 +20,7 @@ function List({ options, title }) {
           : null}
       </ListBox>
       <Counter total={EmojiMenus.length} />
-    </ListcContainer>
+    </ListContainer>
   );
 }
 
@@ -42,13 +44,20 @@ List.propTypes = {
 
 export default List;
 
-const ListcContainer = styled.div`
+const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 300px;
-  height: 300px;
+<<<<<<< Updated upstream
+  border: 1px solid #bfbfbf;
+  width: ${({ width }) => (width === '' ? '250px' : `${width}px`)};
+  height: ${({ height }) => (height === '' ? '300px' : `${height}px`)};
   border: 1px solid black;
+=======
+  width: 100%;
+  height: 300px;
+  border: 1px solid #bfbfbf;
+>>>>>>> Stashed changes
   border-radius: 10px;
 `;
 
