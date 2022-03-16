@@ -1,16 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-function Title() {
-  return <TitleContainer>Title</TitleContainer>;
+function Title({ title }) {
+  return <TitleContainer>{title}</TitleContainer>;
 }
+
+Title.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default Title;
 
 const TitleContainer = styled.div`
   width: 100%;
-  padding-left: 1rem;
-  height: 20rem;
+  padding: 8px 16px;
   position: sticky;
   font-size: 24px;
   font-weight: bold;

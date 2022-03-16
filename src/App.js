@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import SearchBar from './components/SearchBar';
@@ -11,16 +12,17 @@ function App() {
     (state) => state.option
   );
 
+  const { titleInput } = useSelector((state) => state.setting);
   return (
     <SelectorWrapper>
       <SelectorContainer>
         <SearchBar />
-        <List options={availableOptions} />
+        <List options={availableOptions} title={titleInput.available} />
       </SelectorContainer>
       <ButtonTab />
       <SelectorContainer>
         <SearchBar />
-        <List options={selectedOptions} />
+        <List options={selectedOptions} title={titleInput.selected} />
       </SelectorContainer>
       <Setting />
     </SelectorWrapper>
@@ -40,5 +42,4 @@ const SelectorWrapper = styled.div`
 const SelectorContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 300px;
 `;
