@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Title from './Title';
 import EmojiMenus from '../data/EmojiMock';
 import OptionsItem from './OptionsItem';
+import Counter from './Counter';
 
 function List() {
   return (
@@ -13,6 +14,7 @@ function List() {
           return <OptionsItem name={item.name} emoji={item.emoji} />;
         })}
       </ListBox>
+      <Counter total={EmojiMenus.length} />
     </ListcContainer>
   );
 }
@@ -30,6 +32,6 @@ const ListcContainer = styled.div`
   overflow: auto;
 `;
 
-const ListBox = styled.div`
+const ListBox = styled.ul`
   list-decoration: none;
 `;
