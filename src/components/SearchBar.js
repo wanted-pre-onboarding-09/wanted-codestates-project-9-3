@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { updateLeftSearch, updateRightSearch } from '../store/optionSlice';
 
 function SearchBar({ section }) {
   const dispatch = useDispatch();
-  const [searchItem, setSearchItem] = useSelector(
-    (state) => state.leftSearchItem
+  const initSearchItem = useSelector((state) =>
+    section === 'left' ? state.leftSearchItem : state.rightSearchItem
   );
+  const [searchItem, setSearchItem] = useState(initSearchItem);
 
   const searchHandler = (e) => {
     setSearchItem(e.target.value);
@@ -18,6 +19,10 @@ function SearchBar({ section }) {
       dispatch(updateRightSearch(e.target.value));
     }
   };
+
+  useEffect(() => {
+    setSearchItem(initSearchItem);
+  }, [initSearchItem]);
 
   return (
     <SearchBarWrap>
