@@ -3,21 +3,22 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-function Counter({ total }) {
+function Counter({ total, selected }) {
   const { showItemCnt } = useSelector((state) => state.setting);
 
   if (showItemCnt)
     return (
       <CounterContainer>
         {/* TODO: 전체 개수 중에서 선택된 요소들 상태 관리 필요(?) */}
-        0/{total}
+        {selected}/{total}
       </CounterContainer>
     );
   return null;
 }
 
 Counter.propTypes = {
-  total: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
+  selected: PropTypes.number.isRequired,
 };
 
 export default Counter;
