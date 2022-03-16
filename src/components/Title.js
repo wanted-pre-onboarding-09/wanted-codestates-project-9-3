@@ -15,7 +15,6 @@ export default Title;
 const TitleContainer = styled.div`
   width: 100%;
   padding: 8px 16px;
-  position: sticky;
   font-size: 24px;
   font-weight: bold;
   border-bottom: 1px solid #bfbfbf;
