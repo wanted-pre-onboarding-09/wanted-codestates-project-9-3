@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import SearchBar from './components/SearchBar';
 import List from './components/List';
 import ButtonTab from './components/ButtonTab';
-import EmojiMenus from './data/EmojiMock';
 import Setting from './components/Setting';
 
 function App() {
-  const [availableOptions, setAvailableOptions] = useState(EmojiMenus);
-  const [selectedOtions, setSelectedOptions] = useState();
-
-  console.log(setAvailableOptions);
-  console.log(setSelectedOptions);
+  const { availableOptions, selectedOptions } = useSelector(
+    (state) => state.option
+  );
 
   return (
     <SelectorWrapper>
@@ -22,7 +20,7 @@ function App() {
       <ButtonTab />
       <SelectorContainer>
         <SearchBar />
-        <List options={selectedOtions} />
+        <List options={selectedOptions} />
       </SelectorContainer>
       <Setting />
     </SelectorWrapper>
