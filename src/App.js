@@ -42,5 +42,4 @@ const SelectorWrapper = styled.div`
 const SelectorContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 300px;
 `;
