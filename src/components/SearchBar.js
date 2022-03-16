@@ -14,7 +14,7 @@ export default SearchBar;
 const SearchBarWrap = styled.div`
   width: 200px;
   min-height: 30px;
-  border: 2px solid gray;
+  border: 1px solid gray;
   border-radius: 5px;
   display: flex;
   align-items: center;
