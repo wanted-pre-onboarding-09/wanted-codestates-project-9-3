@@ -119,7 +119,7 @@ function Setting() {
               value="XS"
               checked={itemSize === 'XS'}
             />
-            X
+            S
             <input
               onChange={handleSize}
               type="radio"
