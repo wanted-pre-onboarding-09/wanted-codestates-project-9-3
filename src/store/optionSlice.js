@@ -23,12 +23,13 @@ const optionSlice = createSlice({
       state.rightSearchItem = action.payload;
     },
     setSelection(state, { payload: { type, index } }) {
-      console.log(index);
+      // console.log(index);
       if (type === 'available') {
         state.availableSelection = index;
       } else {
         state.selectedSelection = index;
       }
+      // console.log(state.selectedSelection);
     },
     moveAll(state, action) {
       if (action.payload === 'left') {
@@ -48,9 +49,60 @@ const optionSlice = createSlice({
         state.selectedOptions = [];
       }
     },
+    moveSelected(state, action) {
+      if (action.payload === 'left') {
+        const copyData = [...state.selectedOptions];
+
+        const arr = state.selectedSelection.map(
+          (el) => copyData.slice(el, el + 1)[0]
+        );
+        state.availableOptions = [...state.availableOptions, ...arr];
+
+        const filteredData = Object.keys(state.selectedOptions)
+          .filter((key) => !state.selectedSelection.includes(Number(key)))
+          .reduce((obj, key) => {
+            obj[key] = state.selectedOptions[key];
+            return obj;
+          }, []);
+
+        const newData = filteredData.filter((el) => {
+          return el != null;
+        });
+
+        state.selectedOptions = newData;
+
+        state.selectedSelection = [];
+      } else if (action.payload === 'right') {
+        const copyData = [...state.availableOptions];
+
+        const arr = state.availableSelection.map(
+          (el) => copyData.slice(el, el + 1)[0]
+        );
+        state.selectedOptions = [...state.selectedOptions, ...arr];
+
+        const filteredData = Object.keys(state.availableOptions)
+          .filter((key) => !state.availableSelection.includes(Number(key)))
+          .reduce((obj, key) => {
+            obj[key] = state.availableOptions[key];
+            return obj;
+          }, []);
+
+        const newData = filteredData.filter((el) => {
+          return el != null;
+        });
+        state.availableOptions = newData;
+
+        state.availableSelection = [];
+      }
+    },
   },
 });
 
-export const { updateLeftSearch, updateRightSearch, setSelection, moveAll } =
-  optionSlice.actions;
+export const {
+  updateLeftSearch,
+  updateRightSearch,
+  setSelection,
+  moveAll,
+  moveSelected,
+} = optionSlice.actions;
 export default optionSlice.reducer;

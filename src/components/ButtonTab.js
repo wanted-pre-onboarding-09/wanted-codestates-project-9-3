@@ -7,24 +7,40 @@ import {
   BsChevronRight,
   BsChevronLeft,
 } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
+import { moveAll, moveSelected } from '../store/optionSlice';
 
 function ButtonTab() {
+  const dispatch = useDispatch();
+
+  const handleReset = () => {
+    dispatch(moveAll('left'));
+  };
+
+  const handleMoveAll = (position) => {
+    dispatch(moveAll(position));
+  };
+
+  const handleSelectedMove = (position) => {
+    dispatch(moveSelected(position));
+  };
+
   return (
     <ButtonTabContainer>
-      <Button>
+      <Button onClick={handleReset}>
         <BsArrowCounterclockwise />
       </Button>
-      <Button>
+      <Button onClick={() => handleMoveAll('right')}>
         <BsChevronDoubleRight />
       </Button>
-      <Button>
+      <Button onClick={() => handleMoveAll('left')}>
         <BsChevronDoubleLeft />
       </Button>
       <Button>
-        <BsChevronRight />
+        <BsChevronRight onClick={() => handleSelectedMove('right')} />
       </Button>
       <Button>
-        <BsChevronLeft />
+        <BsChevronLeft onClick={() => handleSelectedMove('left')} />
       </Button>
     </ButtonTabContainer>
   );
