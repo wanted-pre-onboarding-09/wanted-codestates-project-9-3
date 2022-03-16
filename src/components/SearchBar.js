@@ -26,7 +26,7 @@ function SearchBar({ section }) {
 
   return (
     <SearchBarWrap>
-      <SearchBarInput value={searchItem} onChange={searchHandler} />
+      <SearchBarInput value={searchItem || ''} onChange={searchHandler} />
     </SearchBarWrap>
   );
 }
