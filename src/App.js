@@ -24,6 +24,7 @@ function App() {
           title={titleInput.available}
           type="available"
           selectedSelection={availableSelection}
+          section="left"
         />
       </SelectorContainer>
       <ButtonTab />
@@ -34,6 +35,7 @@ function App() {
           title={titleInput.selected}
           type="selected"
           selectedSelection={selectedSelection}
+          section="right"
         />
       </SelectorContainer>
       <Setting />
