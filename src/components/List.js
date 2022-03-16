@@ -29,9 +29,9 @@ const ListcContainer = styled.div`
   height: 300px;
   border: 1px solid black;
   border-radius: 10px;
-  overflow: auto;
 `;
 
 const ListBox = styled.ul`
   list-decoration: none;
+  overflow: auto;
 `;
