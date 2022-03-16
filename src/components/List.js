@@ -6,10 +6,10 @@ import EmojiMenus from '../data/EmojiMock';
 import OptionsItem from './OptionsItem';
 import Counter from './Counter';
 
-function List({ options }) {
+function List({ options, title }) {
   return (
     <ListcContainer>
-      <Title />
+      <Title title={title} />
       <ListBox>
         {options
           ? options.map((item) => {
@@ -37,6 +37,7 @@ List.propTypes = {
       emoji: PropTypes.string,
     })
   ).isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default List;

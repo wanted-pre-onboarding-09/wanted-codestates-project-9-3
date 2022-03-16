@@ -1,9 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-function Title() {
-  return <TitleContainer>Title</TitleContainer>;
+function Title({ title }) {
+  return <TitleContainer>{title}</TitleContainer>;
 }
+
+Title.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default Title;
 
