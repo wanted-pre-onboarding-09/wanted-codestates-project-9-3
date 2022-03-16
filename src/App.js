@@ -7,21 +7,34 @@ import ButtonTab from './components/ButtonTab';
 import Setting from './components/Setting';
 
 function App() {
-  const { availableOptions, selectedOptions } = useSelector(
-    (state) => state.option
-  );
+  const {
+    availableOptions,
+    selectedOptions,
+    availableSelection,
+    selectedSelection,
+  } = useSelector((state) => state.option);
 
   const { titleInput } = useSelector((state) => state.setting);
   return (
     <SelectorWrapper>
       <SelectorContainer>
         <SearchBar section="left" />
-        <List options={availableOptions} title={titleInput.available} />
+        <List
+          options={availableOptions}
+          title={titleInput.available}
+          type="available"
+          selectedSelection={availableSelection}
+        />
       </SelectorContainer>
       <ButtonTab />
       <SelectorContainer>
         <SearchBar section="right" />
-        <List options={selectedOptions} title={titleInput.selected} />
+        <List
+          options={selectedOptions}
+          title={titleInput.selected}
+          type="selected"
+          selectedSelection={selectedSelection}
+        />
       </SelectorContainer>
       <Setting />
     </SelectorWrapper>
