@@ -8,7 +8,7 @@ import Counter from './Counter';
 
 function List({ options }) {
   return (
-    <ListcContainer>
+    <ListContainer>
       <Title />
       <ListBox>
         {options
@@ -18,7 +18,7 @@ function List({ options }) {
           : null}
       </ListBox>
       <Counter total={EmojiMenus.length} />
-    </ListcContainer>
+    </ListContainer>
   );
 }
 
@@ -41,13 +41,13 @@ List.propTypes = {
 
 export default List;
 
-const ListcContainer = styled.div`
+const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 300px;
+  width: 100%;
   height: 300px;
-  border: 1px solid black;
+  border: 1px solid #bfbfbf;
   border-radius: 10px;
 `;
 
