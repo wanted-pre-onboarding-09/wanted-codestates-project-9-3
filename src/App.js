@@ -1,9 +1,14 @@
 import React from 'react';
-
+import SearchBar from './components/SearchBar';
 import List from './components/List';
 
 function App() {
-  return <List />;
+  return (
+    <>
+      <SearchBar />
+      <List />;
+    </>
+  );
 }
 
 export default App;
