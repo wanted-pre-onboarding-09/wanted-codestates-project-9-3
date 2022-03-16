@@ -15,12 +15,12 @@ function App() {
   return (
     <SelectorWrapper>
       <SelectorContainer>
-        <SearchBar />
+        <SearchBar section="left" />
         <List options={availableOptions} title={titleInput.available} />
       </SelectorContainer>
       <ButtonTab />
       <SelectorContainer>
-        <SearchBar />
+        <SearchBar section="right" />
         <List options={selectedOptions} title={titleInput.selected} />
       </SelectorContainer>
       <Setting />
