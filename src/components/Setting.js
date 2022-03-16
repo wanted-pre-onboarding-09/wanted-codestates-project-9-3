@@ -167,6 +167,9 @@ function Setting() {
   );
 }
 const StyledSection = styled.section`
+  position: absolute;
+  top: 0px;
+  right: 30px;
   width: 250px;
 `;
 const StyledDiv = styled.div`
@@ -175,9 +178,13 @@ const StyledDiv = styled.div`
   margin-bottom: 10px;
 
   div {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 24px;
     border: 1px solid #ccc;
-    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
   }

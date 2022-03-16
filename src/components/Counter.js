@@ -28,4 +28,5 @@ const CounterContainer = styled.div`
   padding: 10px 0;
   background: #fff;
   border-top: 1px solid #bfbfbf;
+  border-radius: 0px 0px 10px 10px;
 `;

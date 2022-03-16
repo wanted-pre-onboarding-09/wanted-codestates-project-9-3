@@ -32,6 +32,7 @@ function App() {
 export default App;
 
 const SelectorWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,4 +42,5 @@ const SelectorWrapper = styled.div`
 const SelectorContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 300px;
 `;

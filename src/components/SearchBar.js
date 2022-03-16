@@ -12,13 +12,14 @@ function SearchBar() {
 export default SearchBar;
 
 const SearchBarWrap = styled.div`
-  width: 200px;
+  width: 100%;
   min-height: 30px;
-  border: 1px solid gray;
+  border: 1px solid #bfbfbf;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px;
 `;
 
 const SearchBarInput = styled.input.attrs({
