@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <SearchBar />
-      <List />;
+      <List />
     </>
   );
 }
