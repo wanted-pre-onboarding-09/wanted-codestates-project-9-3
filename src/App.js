@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import SearchBar from './components/SearchBar';
 import List from './components/List';
@@ -13,16 +14,17 @@ function App() {
   console.log(setAvailableOptions);
   console.log(setSelectedOptions);
 
+  const { titleInput } = useSelector((state) => state.setting);
   return (
     <SelectorWrapper>
       <SelectorContainer>
         <SearchBar />
-        <List options={availableOptions} />
+        <List options={availableOptions} title={titleInput.available} />
       </SelectorContainer>
       <ButtonTab />
       <SelectorContainer>
         <SearchBar />
-        <List options={selectedOtions} />
+        <List options={selectedOtions} title={titleInput.selected} />
       </SelectorContainer>
       <Setting />
     </SelectorWrapper>
