@@ -4,6 +4,7 @@ import SearchBar from './components/SearchBar';
 import List from './components/List';
 import ButtonTab from './components/ButtonTab';
 import EmojiMenus from './data/EmojiMock';
+import Setting from './components/Setting';
 
 function App() {
   const [availableOptions, setAvailableOptions] = useState(EmojiMenus);
@@ -23,6 +24,7 @@ function App() {
         <SearchBar />
         <List options={selectedOtions} />
       </SelectorContainer>
+      <Setting />
     </SelectorWrapper>
   );
 }
