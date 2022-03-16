@@ -1,20 +1,42 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  changeAvailableOptions,
+  changeSelectedOptions,
+  setSelection,
+} from '../store/optionSlice';
 import Title from './Title';
-import EmojiMenus from '../data/EmojiMock';
 import OptionsItem from './OptionsItem';
 import Counter from './Counter';
-import { setSelection } from '../store/optionSlice';
 
-function List({ options, title, type, selectedSelection }) {
+function List({ options, title, type, selectedSelection, section }) {
   const { width, height } = useSelector((state) => state.setting.dashboardSize);
   const { singleMove } = useSelector(({ setting }) => ({
     singleMove: setting.singleMove,
   }));
   const dispatch = useDispatch();
+  const dragItemIndex = useRef(null);
+  const dragOverItemIndex = useRef(null);
+
+  const onDragStart = (e, index) => {
+    dragItemIndex.current = index;
+  };
+  const onDragEnter = (e, index) => {
+    dragOverItemIndex.current = index;
+    const copyListItems = [...options];
+    const dragItemContent = copyListItems[dragItemIndex.current];
+    copyListItems.splice(dragItemIndex.current, 1);
+    copyListItems.splice(dragOverItemIndex.current, 0, dragItemContent);
+    dragItemIndex.current = dragOverItemIndex.current;
+    dragOverItemIndex.current = null;
+    if (section === 'left') {
+      dispatch(changeAvailableOptions(copyListItems));
+    } else {
+      dispatch(changeSelectedOptions(copyListItems));
+    }
+  };
 
   // 단일 선택
   const normalSelection = (index) => {
@@ -78,6 +100,7 @@ function List({ options, title, type, selectedSelection }) {
       normalSelection(index);
     }
   };
+
   return (
     <ListContainer width={width} height={height}>
       <Title title={title} />
@@ -90,15 +113,17 @@ function List({ options, title, type, selectedSelection }) {
                   key={item.id}
                   name={item.name}
                   emoji={item.emoji}
-                  index={idx}
+                  idx={idx}
                   id={item.id}
                   handleSelection={handleSelection}
+                  onDragStart={onDragStart}
+                  onDragEnter={onDragEnter}
                 />
               );
             })
           : null}
       </ListBox>
-      <Counter total={EmojiMenus.length} selected={selectedSelection.length} />
+      <Counter total={options.length} selected={selectedSelection.length} />
     </ListContainer>
   );
 }
@@ -121,6 +146,7 @@ List.propTypes = {
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   selectedSelection: PropTypes.arrayOf(PropTypes.number).isRequired,
+  section: PropTypes.string.isRequired,
 };
 
 export default List;

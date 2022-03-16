@@ -23,13 +23,11 @@ const optionSlice = createSlice({
       state.rightSearchItem = action.payload;
     },
     setSelection(state, { payload: { type, index } }) {
-      // console.log(index);
       if (type === 'available') {
         state.availableSelection = index;
       } else {
         state.selectedSelection = index;
       }
-      // console.log(state.selectedSelection);
     },
     moveAll(state, action) {
       if (action.payload === 'left') {
@@ -95,12 +93,20 @@ const optionSlice = createSlice({
         state.availableSelection = [];
       }
     },
+    changeAvailableOptions(state, action) {
+      state.availableOptions = action.payload;
+    },
+    changeSelectedOptions(state, action) {
+      state.selectedOptions = action.payload;
+    },
   },
 });
 
 export const {
   updateLeftSearch,
   updateRightSearch,
+  changeAvailableOptions,
+  changeSelectedOptions,
   setSelection,
   moveAll,
   moveSelected,
