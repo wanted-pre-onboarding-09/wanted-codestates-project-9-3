@@ -1,25 +1,104 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+
 import Title from './Title';
 import EmojiMenus from '../data/EmojiMock';
 import OptionsItem from './OptionsItem';
 import Counter from './Counter';
+import { setSelection } from '../store/optionSlice';
 
-function List({ options, title }) {
+function List({ options, title, type, selectedSelection }) {
   const { width, height } = useSelector((state) => state.setting.dashboardSize);
+  const { singleMove } = useSelector(({ setting }) => ({
+    singleMove: setting.singleMove,
+  }));
+  const dispatch = useDispatch();
+
+  // 단일 선택
+  const normalSelection = (index) => {
+    console.log('normalSelection', index);
+    if (selectedSelection.includes(index)) {
+      // 같은 요소인 경우
+      const selected = selectedSelection.filter((item) => item !== index);
+      dispatch(setSelection({ type, index: selected }));
+    } else {
+      // 다른 요소인 경우
+      dispatch(setSelection({ type, index: [index] }));
+    }
+  };
+
+  // 중복 선택 - cmd, ctrl
+  const multiSelectionScatter = (index) => {
+    if (singleMove) return;
+    if (selectedSelection.includes(index)) {
+      const selected = selectedSelection.filter((item) => item !== index);
+      dispatch(setSelection({ type, index: selected }));
+    } else {
+      const selected = [...selectedSelection, index];
+      dispatch(setSelection({ type, index: selected }));
+    }
+  };
+
+  // 중복 선택 - shift
+  const multiSelectionLinear = (index) => {
+    if (singleMove) return;
+    const selected = [];
+    const { length } = selectedSelection;
+    const start = length === 0 ? 0 : selectedSelection[0];
+    const end = index;
+
+    if (start < end) {
+      for (let i = start; i <= end; i += 1) {
+        selected.push(i);
+      }
+    } else {
+      for (let i = start; i >= end; i -= 1) {
+        selected.push(i);
+      }
+    }
+    dispatch(setSelection({ type, index: selected }));
+  };
+
+  const handleSelection = (e, id, index) => {
+    console.log('onClick');
+    console.log(id, index);
+    if (e.ctrlKey || e.metaKey) {
+      console.log('ctrl || cmd');
+      multiSelectionScatter(index);
+    }
+    // shift를 누르고 클릭 했을 때
+    else if (e.shiftKey) {
+      console.log('shift');
+      multiSelectionLinear(index);
+    }
+    // 그냥 클릭 했을 때
+    else {
+      normalSelection(index);
+    }
+  };
   return (
     <ListContainer width={width} height={height}>
       <Title title={title} />
       <ListBox>
         {options
-          ? options.map((item) => {
-              return <OptionsItem name={item.name} emoji={item.emoji} />;
+          ? options.map((item, idx) => {
+              return (
+                <OptionsItem
+                  className={selectedSelection.includes(idx) ? 'selection' : ''}
+                  key={item.id}
+                  name={item.name}
+                  emoji={item.emoji}
+                  index={idx}
+                  id={item.id}
+                  handleSelection={handleSelection}
+                />
+              );
             })
           : null}
       </ListBox>
-      <Counter total={EmojiMenus.length} />
+      <Counter total={EmojiMenus.length} selected={selectedSelection.length} />
     </ListContainer>
   );
 }
@@ -40,6 +119,8 @@ List.propTypes = {
     })
   ).isRequired,
   title: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  selectedSelection: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default List;
