@@ -71,7 +71,7 @@ const Item = styled.li`
     }
   }};
   &.selection {
-    background-color: #dcdcdc;
+    background-color: #f3f3f3;
   }
   span {
     :first-child {

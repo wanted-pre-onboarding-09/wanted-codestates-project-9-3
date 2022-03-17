@@ -69,4 +69,7 @@ const Button = styled.button`
     border-width: 1px 1px 1px 1px;
     border-radius: 0px 0px 4px 4px;
   }
+  :hover {
+    background-color: #f3f3f3;
+  }
 `;
