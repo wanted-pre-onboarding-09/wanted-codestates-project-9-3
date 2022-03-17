@@ -158,12 +158,11 @@ const ListContainer = styled.div`
   width: ${({ width }) => (width === '' ? '250px' : `${width}px`)};
   height: ${({ height }) => (height === '' ? '300px' : `${height}px`)};
   border: 1px solid black;
-  border-radius: 10px;
+  border-radius: 4px;
   overflow: hidden;
 `;
 
 const ListBox = styled.ul`
   height: 100%;
-  list-decoration: none;
   overflow: auto;
 `;

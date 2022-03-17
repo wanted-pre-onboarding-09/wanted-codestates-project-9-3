@@ -186,7 +186,7 @@ const StyledDiv = styled.div`
     align-items: center;
     font-size: 24px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
   }
 `;
