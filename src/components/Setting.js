@@ -40,13 +40,14 @@ function Setting() {
   return (
     <StyledSection>
       <StyledDiv>
-        <div>
-          <AiFillSetting
-            onClick={() => {
-              setIsSetting(!isSetting);
-            }}
-          />
-        </div>
+        <button
+          type="button"
+          onClick={() => {
+            setIsSetting(!isSetting);
+          }}
+        >
+          <AiFillSetting />
+        </button>
       </StyledDiv>
 
       {isSetting && (
@@ -177,7 +178,7 @@ const StyledDiv = styled.div`
   justify-content: end;
   margin-bottom: 10px;
 
-  div {
+  button {
     width: 40px;
     height: 40px;
     display: flex;
