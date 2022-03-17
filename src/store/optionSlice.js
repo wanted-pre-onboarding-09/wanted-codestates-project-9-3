@@ -42,7 +42,6 @@ const optionSlice = createSlice({
         state.availableOptions = [...newArr];
       }
     },
-
     updateRightSearch(state, action) {
       // 왼쪽 옵션에 아무것도 없는 경우
       if (state.availableOptions.length === 0) {
@@ -97,12 +96,10 @@ const optionSlice = createSlice({
     },
     moveSelected(state, action) {
       if (action.payload === 'left') {
-        const copyData = [...state.selectedOptions];
-
-        const arr = state.selectedSelection.map(
-          (el) => copyData.slice(el, el + 1)[0]
+        const newData = state.selectedSelection.map(
+          (el) => state.selectedOptions.slice(el, el + 1)[0]
         );
-        state.availableOptions = [...state.availableOptions, ...arr];
+        state.availableOptions = [...state.availableOptions, ...newData];
 
         const filteredData = Object.keys(state.selectedOptions)
           .filter((key) => !state.selectedSelection.includes(Number(key)))
@@ -111,20 +108,18 @@ const optionSlice = createSlice({
             return obj;
           }, []);
 
-        const newData = filteredData.filter((el) => {
+        const updatedData = filteredData.filter((el) => {
           return el != null;
         });
 
-        state.selectedOptions = newData;
-
+        state.selectedOptions = updatedData;
         state.selectedSelection = [];
       } else if (action.payload === 'right') {
-        const copyData = [...state.availableOptions];
-
-        const arr = state.availableSelection.map(
-          (el) => copyData.slice(el, el + 1)[0]
+        const newData = state.availableSelection.map(
+          (el) => state.availableOptions.slice(el, el + 1)[0]
         );
-        state.selectedOptions = [...state.selectedOptions, ...arr];
+
+        state.selectedOptions = [...state.selectedOptions, ...newData];
 
         const filteredData = Object.keys(state.availableOptions)
           .filter((key) => !state.availableSelection.includes(Number(key)))
@@ -133,11 +128,10 @@ const optionSlice = createSlice({
             return obj;
           }, []);
 
-        const newData = filteredData.filter((el) => {
+        const updatedData = filteredData.filter((el) => {
           return el != null;
         });
-        state.availableOptions = newData;
-
+        state.availableOptions = updatedData;
         state.availableSelection = [];
       }
     },
