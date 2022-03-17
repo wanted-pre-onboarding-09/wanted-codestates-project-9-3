@@ -17,33 +17,56 @@ function List({ options, title, type, selectedSelection, section }) {
     moveOnlyOne: setting.moveOnlyOne,
   }));
 
-  /* type의 종류에 따른 searchItem을 가져온다. */
-  const searchItem = useSelector((state) =>
-    type === 'available'
-      ? state.option.leftSearchItem
-      : state.option.rightSearchItem
-  );
-
   const dispatch = useDispatch();
   const dragItemIndex = useRef(null);
   const dragOverItemIndex = useRef(null);
+  const selectContainer = useRef(false);
 
   const onDragStart = (e, index) => {
     dragItemIndex.current = index;
+    selectContainer.current = true;
   };
-  const onDragEnter = (e, index) => {
-    dragOverItemIndex.current = index;
-    const copyListItems = [...options];
-    const dragItemContent = copyListItems[dragItemIndex.current];
-    copyListItems.splice(dragItemIndex.current, 1);
-    copyListItems.splice(dragOverItemIndex.current, 0, dragItemContent);
-    dragItemIndex.current = dragOverItemIndex.current;
-    dragOverItemIndex.current = null;
-    if (section === 'left') {
-      dispatch(changeAvailableOptions(copyListItems));
+
+  const onAvailableDragEnter = (e, index) => {
+    if (selectContainer.current) {
+      if (section === 'left') {
+        dragOverItemIndex.current = index;
+        const copyListItems = [...options];
+        const dragItemContent = copyListItems[dragItemIndex.current];
+        copyListItems.splice(dragItemIndex.current, 1);
+        copyListItems.splice(dragOverItemIndex.current, 0, dragItemContent);
+        dragItemIndex.current = dragOverItemIndex.current;
+        dragOverItemIndex.current = null;
+        dispatch(changeAvailableOptions(copyListItems));
+      }
     } else {
-      dispatch(changeSelectedOptions(copyListItems));
+      return {};
     }
+  };
+
+  const onSelectedDragEnter = (e, index) => {
+    if (selectContainer.current) {
+      if (section === 'right') {
+        dragOverItemIndex.current = index;
+        const copyListItems = [...options];
+        const dragItemContent = copyListItems[dragItemIndex.current];
+        copyListItems.splice(dragItemIndex.current, 1);
+        copyListItems.splice(dragOverItemIndex.current, 0, dragItemContent);
+        dragItemIndex.current = dragOverItemIndex.current;
+        dragOverItemIndex.current = null;
+        dispatch(changeSelectedOptions(copyListItems));
+      }
+    } else {
+      return {};
+    }
+  };
+
+  const onDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const onMouseLeave = () => {
+    selectContainer.current = false;
   };
 
   // 단일 선택
@@ -107,31 +130,26 @@ function List({ options, title, type, selectedSelection, section }) {
   return (
     <ListContainer width={width} height={height}>
       <Title title={title} />
-      <ListBox>
+      <ListBox onMouseLeave={onMouseLeave}>
         {options
-          ? options
-              .filter((option) => {
-                return searchItem === ''
-                  ? option
-                  : option.name.includes(searchItem);
-              })
-              .map((item, idx) => {
-                return (
-                  <OptionsItem
-                    className={
-                      selectedSelection.includes(idx) ? 'selection' : ''
-                    }
-                    key={item.id}
-                    name={item.name}
-                    emoji={item.emoji}
-                    idx={idx}
-                    id={item.id}
-                    handleSelection={handleSelection}
-                    onDragStart={onDragStart}
-                    onDragEnter={onDragEnter}
-                  />
-                );
-              })
+          ? options.map((item, idx) => {
+              return (
+                <OptionsItem
+                  className={selectedSelection.includes(idx) ? 'selection' : ''}
+                  key={item.id}
+                  name={item.name}
+                  emoji={item.emoji}
+                  idx={idx}
+                  id={item.id}
+                  handleSelection={handleSelection}
+                  onDragStart={onDragStart}
+                  onAvailableDragEnter={onAvailableDragEnter}
+                  onSelectedDragEnter={onSelectedDragEnter}
+                  onDragOver={onDragOver}
+                  section={section}
+                />
+              );
+            })
           : null}
       </ListBox>
       <Counter total={options.length} selected={selectedSelection.length} />
@@ -165,15 +183,15 @@ export default List;
 const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   border: 1px solid #bfbfbf;
   width: ${({ width }) => (width === '' ? '250px' : `${width}px`)};
   height: ${({ height }) => (height === '' ? '300px' : `${height}px`)};
   border: 1px solid black;
-  border-radius: 4px;
-  overflow: hidden;
+  border-radius: 10px;
 `;
 
 const ListBox = styled.ul`
+  list-style: none;
   overflow: auto;
-  height: 100%;
 `;

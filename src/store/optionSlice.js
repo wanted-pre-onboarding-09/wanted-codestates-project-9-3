@@ -1,10 +1,10 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable array-callback-return */
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 import emojiMenus from '../data/EmojiMock';
 
 const initialState = {
-  leftSearchItem: '',
-  rightSearchItem: '',
   availableOptions: emojiMenus,
   selectedOptions: [],
   availableSelection: [],
@@ -16,10 +16,57 @@ const optionSlice = createSlice({
   initialState,
   reducers: {
     updateLeftSearch(state, action) {
-      state.leftSearchItem = action.payload;
+      // 오른쪽 옵션에 아무것도 없는 경우
+      if (state.selectedOptions.length === 0) {
+        state.availableOptions = [
+          ...emojiMenus.filter((option) => {
+            return option.name.indexOf(action.payload) !== -1;
+          }),
+        ];
+      } else {
+        /* 오른쪽 옵션에 요소가 있는 경우 */
+        const newArr = emojiMenus
+          .filter((option) => {
+            return (
+              state.selectedOptions
+                .map((el) => {
+                  return el.name;
+                })
+                .indexOf(option.name) === -1
+            );
+          })
+          .filter((option) => {
+            return option.name.indexOf(action.payload) !== -1;
+          });
+
+        state.availableOptions = [...newArr];
+      }
     },
     updateRightSearch(state, action) {
-      state.rightSearchItem = action.payload;
+      // 왼쪽 옵션에 아무것도 없는 경우
+      if (state.availableOptions.length === 0) {
+        state.selectedOptions = [
+          ...emojiMenus.filter((option) => {
+            return option.name.indexOf(action.payload) !== -1;
+          }),
+        ];
+      } else {
+        const newArr = emojiMenus
+          .filter((option) => {
+            return (
+              state.availableOptions
+                .map((el) => {
+                  return el.name;
+                })
+                .indexOf(option.name) === -1
+            );
+          })
+          .filter((option) => {
+            return option.name.indexOf(action.payload) !== -1;
+          });
+
+        state.selectedOptions = [...newArr];
+      }
     },
     setSelection(state, { payload: { type, index } }) {
       if (type === 'available') {
