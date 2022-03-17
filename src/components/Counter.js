@@ -31,6 +31,7 @@ const CounterContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 40px;
   padding: 10px 0;
   background: #fff;
   border-top: 1px solid #bfbfbf;
