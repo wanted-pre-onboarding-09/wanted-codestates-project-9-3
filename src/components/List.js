@@ -17,13 +17,6 @@ function List({ options, title, type, selectedSelection, section }) {
     moveOnlyOne: setting.moveOnlyOne,
   }));
 
-  /* type의 종류에 따른 searchItem을 가져온다. */
-  const searchItem = useSelector((state) =>
-    type === 'available'
-      ? state.option.leftSearchItem
-      : state.option.rightSearchItem
-  );
-
   const dispatch = useDispatch();
   const dragItemIndex = useRef(null);
   const dragOverItemIndex = useRef(null);
@@ -109,29 +102,21 @@ function List({ options, title, type, selectedSelection, section }) {
       <Title title={title} />
       <ListBox>
         {options
-          ? options
-              .filter((option) => {
-                return searchItem === ''
-                  ? option
-                  : option.name.includes(searchItem);
-              })
-              .map((item, idx) => {
-                return (
-                  <OptionsItem
-                    className={
-                      selectedSelection.includes(idx) ? 'selection' : ''
-                    }
-                    key={item.id}
-                    name={item.name}
-                    emoji={item.emoji}
-                    idx={idx}
-                    id={item.id}
-                    handleSelection={handleSelection}
-                    onDragStart={onDragStart}
-                    onDragEnter={onDragEnter}
-                  />
-                );
-              })
+          ? options.map((item, idx) => {
+              return (
+                <OptionsItem
+                  className={selectedSelection.includes(idx) ? 'selection' : ''}
+                  key={item.id}
+                  name={item.name}
+                  emoji={item.emoji}
+                  idx={idx}
+                  id={item.id}
+                  handleSelection={handleSelection}
+                  onDragStart={onDragStart}
+                  onDragEnter={onDragEnter}
+                />
+              );
+            })
           : null}
       </ListBox>
       <Counter total={options.length} selected={selectedSelection.length} />
@@ -165,15 +150,15 @@ export default List;
 const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   border: 1px solid #bfbfbf;
   width: ${({ width }) => (width === '' ? '250px' : `${width}px`)};
   height: ${({ height }) => (height === '' ? '300px' : `${height}px`)};
   border: 1px solid black;
-  border-radius: 4px;
-  overflow: hidden;
+  border-radius: 10px;
 `;
 
 const ListBox = styled.ul`
+  list-style: none;
   overflow: auto;
-  height: 100%;
 `;
