@@ -193,7 +193,10 @@ const StyledDiv = styled.div`
 
 const StyledUl = styled.ul`
   border: solid 1px #ccc;
+  background-color: #ffffff;
+  border-radius: 5px;
 `;
+
 const StyledLi = styled.li`
   border-bottom: solid 1px #ccc;
   padding: 20px 15px;
@@ -201,6 +204,10 @@ const StyledLi = styled.li`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  span {
+    cursor: default;
+  }
 
   button {
     width: 20px;
@@ -218,8 +225,8 @@ const StyledLi = styled.li`
     justify-content: center;
 
     input {
-      border: solid 1px black;
-      border-radius: 2px;
+      border: solid 1px #ccc;
+      border-radius: 5px;
       padding: 5px 10px;
     }
     input + input {
@@ -239,6 +246,7 @@ const StyledLi = styled.li`
     }
     input {
       border: solid 1px #ccc;
+      border-radius: 5px;
       padding: 5px 10px;
       width: 80%;
       margin: 10px 10px;
