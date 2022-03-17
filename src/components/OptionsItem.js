@@ -7,7 +7,6 @@ function OptionsItem({
   name,
   emoji,
   idx,
-  id,
   handleSelection,
   className,
   onDragStart,
@@ -22,7 +21,7 @@ function OptionsItem({
     <Item
       className={className}
       itemSize={itemSize}
-      onClick={(e) => handleSelection(e, id, idx)}
+      onClick={(e) => handleSelection(e, idx)}
       id={idx}
       onDragStart={(e) => onDragStart(e, idx, section)}
       onDragEnter={
@@ -42,7 +41,6 @@ function OptionsItem({
 OptionsItem.propTypes = {
   name: PropTypes.string.isRequired,
   emoji: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
   handleSelection: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
   idx: PropTypes.number.isRequired,

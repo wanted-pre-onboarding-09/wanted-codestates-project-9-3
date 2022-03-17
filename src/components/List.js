@@ -96,24 +96,32 @@ function List({ options, title, type, selectedSelection, section }) {
   // 중복 선택 - shift
   const multiSelectionLinear = (index) => {
     if (moveOnlyOne) return;
-    const selected = [];
+
+    let selected = [];
     const { length } = selectedSelection;
     const start = length === 0 ? 0 : selectedSelection[0];
-    const end = index;
+    const end = selectedSelection[length - 1];
 
-    if (start < end) {
-      for (let i = start; i <= end; i += 1) {
+    if (end < index) {
+      for (let i = end; i <= index; i += 1) {
         selected.push(i);
       }
+      selected = [...selectedSelection, ...selected];
+    } else if (start < index) {
+      for (let i = start; i <= index; i += 1) {
+        selected.push(i);
+      }
+      selected = [...selectedSelection, ...selected];
     } else {
-      for (let i = start; i >= end; i -= 1) {
-        selected.push(i);
+      for (let i = start - 1; i >= index; i -= 1) {
+        selected.unshift(i);
       }
+      selected = [...selected, ...selectedSelection];
     }
     dispatch(setSelection({ type, index: selected }));
   };
 
-  const handleSelection = (e, id, index) => {
+  const handleSelection = (e, index) => {
     if (e.ctrlKey || e.metaKey) {
       multiSelectionScatter(index);
     }
