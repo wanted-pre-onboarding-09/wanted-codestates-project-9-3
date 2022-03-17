@@ -17,13 +17,6 @@ function List({ options, title, type, selectedSelection, section }) {
     moveOnlyOne: setting.moveOnlyOne,
   }));
 
-  /* type의 종류에 따른 searchItem을 가져온다. */
-  const searchItem = useSelector((state) =>
-    type === 'available'
-      ? state.option.leftSearchItem
-      : state.option.rightSearchItem
-  );
-
   const dispatch = useDispatch();
   const dragItemIndex = useRef(null);
   const dragOverItemIndex = useRef(null);
