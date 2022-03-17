@@ -36,11 +36,11 @@ function ButtonTab() {
       <Button onClick={() => handleMoveAll('left')}>
         <BsChevronDoubleLeft />
       </Button>
-      <Button>
-        <BsChevronRight onClick={() => handleSelectedMove('right')} />
+      <Button onClick={() => handleSelectedMove('right')}>
+        <BsChevronRight />
       </Button>
-      <Button>
-        <BsChevronLeft onClick={() => handleSelectedMove('left')} />
+      <Button onClick={() => handleSelectedMove('left')}>
+        <BsChevronLeft />
       </Button>
     </ButtonTabContainer>
   );
