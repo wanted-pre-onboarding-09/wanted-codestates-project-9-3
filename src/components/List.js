@@ -176,4 +176,5 @@ const ListContainer = styled.div`
 const ListBox = styled.ul`
   list-style: none;
   overflow: auto;
+  height: 100%;
 `;
