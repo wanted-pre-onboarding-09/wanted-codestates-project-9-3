@@ -10,8 +10,7 @@ function OptionsItem({
   handleSelection,
   className,
   onDragStart,
-  onAvailableDragEnter,
-  onSelectedDragEnter,
+  onDragEnter,
   onDragOver,
   section,
 }) {
@@ -24,11 +23,7 @@ function OptionsItem({
       onClick={(e) => handleSelection(e, idx)}
       id={idx}
       onDragStart={(e) => onDragStart(e, idx, section)}
-      onDragEnter={
-        section === 'left'
-          ? (e) => onAvailableDragEnter(e, idx)
-          : (e) => onSelectedDragEnter(e, idx)
-      }
+      onDragEnter={(e) => onDragEnter(e, idx)}
       onDragOver={(e) => onDragOver(e)}
       draggable
     >
@@ -45,8 +40,7 @@ OptionsItem.propTypes = {
   className: PropTypes.string.isRequired,
   idx: PropTypes.number.isRequired,
   onDragStart: PropTypes.func.isRequired,
-  onAvailableDragEnter: PropTypes.func.isRequired,
-  onSelectedDragEnter: PropTypes.func.isRequired,
+  onDragEnter: PropTypes.func.isRequired,
   onDragOver: PropTypes.func.isRequired,
   section: PropTypes.string.isRequired,
 };

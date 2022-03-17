@@ -27,33 +27,18 @@ function List({ options, title, type, selectedSelection, section }) {
     selectContainer.current = true;
   };
 
-  const onAvailableDragEnter = (e, index) => {
+  const onDragEnter = (e, index) => {
     if (selectContainer.current) {
+      dragOverItemIndex.current = index;
+      const copyListItems = [...options];
+      const dragItemContent = copyListItems[dragItemIndex.current];
+      copyListItems.splice(dragItemIndex.current, 1);
+      copyListItems.splice(dragOverItemIndex.current, 0, dragItemContent);
+      dragItemIndex.current = dragOverItemIndex.current;
+      dragOverItemIndex.current = null;
       if (section === 'left') {
-        dragOverItemIndex.current = index;
-        const copyListItems = [...options];
-        const dragItemContent = copyListItems[dragItemIndex.current];
-        copyListItems.splice(dragItemIndex.current, 1);
-        copyListItems.splice(dragOverItemIndex.current, 0, dragItemContent);
-        dragItemIndex.current = dragOverItemIndex.current;
-        dragOverItemIndex.current = null;
         dispatch(changeAvailableOptions(copyListItems));
-      }
-    } else {
-      return {};
-    }
-  };
-
-  const onSelectedDragEnter = (e, index) => {
-    if (selectContainer.current) {
-      if (section === 'right') {
-        dragOverItemIndex.current = index;
-        const copyListItems = [...options];
-        const dragItemContent = copyListItems[dragItemIndex.current];
-        copyListItems.splice(dragItemIndex.current, 1);
-        copyListItems.splice(dragOverItemIndex.current, 0, dragItemContent);
-        dragItemIndex.current = dragOverItemIndex.current;
-        dragOverItemIndex.current = null;
+      } else {
         dispatch(changeSelectedOptions(copyListItems));
       }
     } else {
@@ -151,8 +136,7 @@ function List({ options, title, type, selectedSelection, section }) {
                   id={item.id}
                   handleSelection={handleSelection}
                   onDragStart={onDragStart}
-                  onAvailableDragEnter={onAvailableDragEnter}
-                  onSelectedDragEnter={onSelectedDragEnter}
+                  onDragEnter={onDragEnter}
                   onDragOver={onDragOver}
                   section={section}
                 />
