@@ -40,7 +40,6 @@ function List({ options, title, type, selectedSelection, section }) {
 
   // 단일 선택
   const normalSelection = (index) => {
-    console.log('normalSelection', index);
     if (selectedSelection.includes(index)) {
       // 같은 요소인 경우
       const selected = selectedSelection.filter((item) => item !== index);
@@ -84,15 +83,11 @@ function List({ options, title, type, selectedSelection, section }) {
   };
 
   const handleSelection = (e, id, index) => {
-    console.log('onClick');
-    console.log(id, index);
     if (e.ctrlKey || e.metaKey) {
-      console.log('ctrl || cmd');
       multiSelectionScatter(index);
     }
     // shift를 누르고 클릭 했을 때
     else if (e.shiftKey) {
-      console.log('shift');
       multiSelectionLinear(index);
     }
     // 그냥 클릭 했을 때
