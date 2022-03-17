@@ -14,8 +14,8 @@ export default Title;
 
 const TitleContainer = styled.div`
   width: 100%;
-  padding: 8px 16px;
-  font-size: 24px;
+  padding: 12px;
+  font-size: 20px;
   font-weight: bold;
   border-bottom: 1px solid #bfbfbf;
   background-color: rgba(255, 255, 255, 0);

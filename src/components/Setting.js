@@ -170,7 +170,7 @@ function Setting() {
 const StyledSection = styled.section`
   position: absolute;
   top: 0px;
-  right: 30px;
+  right: 50px;
   width: 250px;
 `;
 const StyledDiv = styled.div`

@@ -71,8 +71,7 @@ const Item = styled.li`
     }
   }};
   &.selection {
-    background: red;
-    opacity: 0.7;
+    background-color: #dcdcdc;
   }
   span {
     :first-child {

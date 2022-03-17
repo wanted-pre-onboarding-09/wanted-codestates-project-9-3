@@ -44,7 +44,7 @@ const SearchBarWrap = styled.div`
   width: 100%;
   min-height: 40px;
   border: 1px solid #bfbfbf;
-  border-radius: 5px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
