@@ -18,7 +18,6 @@ const optionSlice = createSlice({
     updateLeftSearch(state, action) {
       state.leftSearchItem = action.payload;
     },
-
     updateRightSearch(state, action) {
       state.rightSearchItem = action.payload;
     },
@@ -49,12 +48,10 @@ const optionSlice = createSlice({
     },
     moveSelected(state, action) {
       if (action.payload === 'left') {
-        const copyData = [...state.selectedOptions];
-
-        const arr = state.selectedSelection.map(
-          (el) => copyData.slice(el, el + 1)[0]
+        const newData = state.selectedSelection.map(
+          (el) => state.selectedOptions.slice(el, el + 1)[0]
         );
-        state.availableOptions = [...state.availableOptions, ...arr];
+        state.availableOptions = [...state.availableOptions, ...newData];
 
         const filteredData = Object.keys(state.selectedOptions)
           .filter((key) => !state.selectedSelection.includes(Number(key)))
@@ -63,20 +60,18 @@ const optionSlice = createSlice({
             return obj;
           }, []);
 
-        const newData = filteredData.filter((el) => {
+        const updatedData = filteredData.filter((el) => {
           return el != null;
         });
 
-        state.selectedOptions = newData;
-
+        state.selectedOptions = updatedData;
         state.selectedSelection = [];
       } else if (action.payload === 'right') {
-        const copyData = [...state.availableOptions];
-
-        const arr = state.availableSelection.map(
-          (el) => copyData.slice(el, el + 1)[0]
+        const newData = state.availableSelection.map(
+          (el) => state.availableOptions.slice(el, el + 1)[0]
         );
-        state.selectedOptions = [...state.selectedOptions, ...arr];
+
+        state.selectedOptions = [...state.selectedOptions, ...newData];
 
         const filteredData = Object.keys(state.availableOptions)
           .filter((key) => !state.availableSelection.includes(Number(key)))
@@ -85,11 +80,10 @@ const optionSlice = createSlice({
             return obj;
           }, []);
 
-        const newData = filteredData.filter((el) => {
+        const updatedData = filteredData.filter((el) => {
           return el != null;
         });
-        state.availableOptions = newData;
-
+        state.availableOptions = updatedData;
         state.availableSelection = [];
       }
     },
@@ -112,3 +106,15 @@ export const {
   moveSelected,
 } = optionSlice.actions;
 export default optionSlice.reducer;
+
+// availableOptions에서 검색하는 경우
+
+// if(selectedOptions.length>0){
+//   const EMOJIMENUS = emojiMenus // 또는 initialState에서 보관
+//   const 검색할 내용 = EMOJIMENUS-selectedOptions // 중복되는 내용 제거를 위해
+//   검색할 내용을 leftSearchItem로 필터링
+//   availableOptions에 상태 업데이트
+// } else{
+//   selectedOptions을 leftSearchItem로 필터링
+//   availableOptions에 상태 업데이트
+// }
