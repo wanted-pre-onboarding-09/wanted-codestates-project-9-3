@@ -183,15 +183,15 @@ export default List;
 const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   border: 1px solid #bfbfbf;
   width: ${({ width }) => (width === '' ? '250px' : `${width}px`)};
   height: ${({ height }) => (height === '' ? '300px' : `${height}px`)};
   border: 1px solid black;
-  border-radius: 4px;
-  overflow: hidden;
+  border-radius: 10px;
 `;
 
 const ListBox = styled.ul`
+  list-style: none;
   overflow: auto;
-  height: 100%;
 `;
