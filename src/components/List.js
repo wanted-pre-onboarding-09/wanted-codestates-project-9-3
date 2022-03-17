@@ -13,8 +13,8 @@ import Counter from './Counter';
 
 function List({ options, title, type, selectedSelection, section }) {
   const { width, height } = useSelector((state) => state.setting.dashboardSize);
-  const { singleMove } = useSelector(({ setting }) => ({
-    singleMove: setting.singleMove,
+  const { moveOnlyOne } = useSelector(({ setting }) => ({
+    moveOnlyOne: setting.moveOnlyOne,
   }));
   const dispatch = useDispatch();
   const dragItemIndex = useRef(null);
@@ -53,7 +53,7 @@ function List({ options, title, type, selectedSelection, section }) {
 
   // 중복 선택 - cmd, ctrl
   const multiSelectionScatter = (index) => {
-    if (singleMove) return;
+    if (moveOnlyOne) return;
     if (selectedSelection.includes(index)) {
       const selected = selectedSelection.filter((item) => item !== index);
       dispatch(setSelection({ type, index: selected }));
@@ -65,7 +65,7 @@ function List({ options, title, type, selectedSelection, section }) {
 
   // 중복 선택 - shift
   const multiSelectionLinear = (index) => {
-    if (singleMove) return;
+    if (moveOnlyOne) return;
     const selected = [];
     const { length } = selectedSelection;
     const start = length === 0 ? 0 : selectedSelection[0];

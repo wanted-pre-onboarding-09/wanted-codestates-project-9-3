@@ -13,7 +13,7 @@ import {
 function Setting() {
   const {
     search,
-    singleMove,
+    moveOnlyOne,
     showItemCnt,
     itemSize,
     dashboardSize,
@@ -40,13 +40,14 @@ function Setting() {
   return (
     <StyledSection>
       <StyledDiv>
-        <div>
-          <AiFillSetting
-            onClick={() => {
-              setIsSetting(!isSetting);
-            }}
-          />
-        </div>
+        <button
+          type="button"
+          onClick={() => {
+            setIsSetting(!isSetting);
+          }}
+        >
+          <AiFillSetting />
+        </button>
       </StyledDiv>
 
       {isSetting && (
@@ -91,10 +92,10 @@ function Setting() {
             <span>하나씩만 옮기기</span>
             <button
               onClick={() => {
-                handleBoolean('singleMove');
+                handleBoolean('moveOnlyOne');
               }}
               type="button"
-              className={singleMove ? 'on' : 'off'}
+              className={moveOnlyOne ? 'on' : 'off'}
             />
           </StyledLi>
 
@@ -177,7 +178,7 @@ const StyledDiv = styled.div`
   justify-content: end;
   margin-bottom: 10px;
 
-  div {
+  button {
     width: 40px;
     height: 40px;
     display: flex;
