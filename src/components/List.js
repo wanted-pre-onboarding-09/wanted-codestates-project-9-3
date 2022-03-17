@@ -16,6 +16,14 @@ function List({ options, title, type, selectedSelection, section }) {
   const { singleMove } = useSelector(({ setting }) => ({
     singleMove: setting.singleMove,
   }));
+
+  /* type의 종류에 따른 searchItem을 가져온다. */
+  const searchItem = useSelector((state) =>
+    type === 'available'
+      ? state.option.leftSearchItem
+      : state.option.rightSearchItem
+  );
+
   const dispatch = useDispatch();
   const dragItemIndex = useRef(null);
   const dragOverItemIndex = useRef(null);
@@ -106,21 +114,29 @@ function List({ options, title, type, selectedSelection, section }) {
       <Title title={title} />
       <ListBox>
         {options
-          ? options.map((item, idx) => {
-              return (
-                <OptionsItem
-                  className={selectedSelection.includes(idx) ? 'selection' : ''}
-                  key={item.id}
-                  name={item.name}
-                  emoji={item.emoji}
-                  idx={idx}
-                  id={item.id}
-                  handleSelection={handleSelection}
-                  onDragStart={onDragStart}
-                  onDragEnter={onDragEnter}
-                />
-              );
-            })
+          ? options
+              .filter((option) => {
+                return searchItem === ''
+                  ? option
+                  : option.name.includes(searchItem);
+              })
+              .map((item, idx) => {
+                return (
+                  <OptionsItem
+                    className={
+                      selectedSelection.includes(idx) ? 'selection' : ''
+                    }
+                    key={item.id}
+                    name={item.name}
+                    emoji={item.emoji}
+                    idx={idx}
+                    id={item.id}
+                    handleSelection={handleSelection}
+                    onDragStart={onDragStart}
+                    onDragEnter={onDragEnter}
+                  />
+                );
+              })
           : null}
       </ListBox>
       <Counter total={options.length} selected={selectedSelection.length} />
@@ -163,6 +179,6 @@ const ListContainer = styled.div`
 `;
 
 const ListBox = styled.ul`
-  list-decoration: none;
+  list-style: none;
   overflow: auto;
 `;
