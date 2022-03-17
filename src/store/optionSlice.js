@@ -69,10 +69,11 @@ const optionSlice = createSlice({
       }
     },
     setSelection(state, { payload: { type, index } }) {
+      const set = new Set(index); // 중복 요소 제거
       if (type === 'available') {
-        state.availableSelection = index;
+        state.availableSelection = [...set].sort((a, b) => a - b);
       } else {
-        state.selectedSelection = index;
+        state.selectedSelection = [...set].sort((a, b) => a - b);
       }
     },
     moveAll(state, action) {
