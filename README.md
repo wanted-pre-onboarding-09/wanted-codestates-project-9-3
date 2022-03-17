@@ -6,7 +6,7 @@
 
 ## 배포링크
 
-[🚀 배포 링크](여기 )
+[🚀 배포 링크](https://logpreesso-9.netlify.app/)
 
 ## 실행 방법
 
@@ -24,7 +24,7 @@
 | [유송현](https://github.com/ysh2987) | 팀원 | option control |
 | [서한석](https://github.com/holystorySeo) | 팀원 | |
 | [손영산](https://github.com/zeromountain) | 팀원 | |
-| [조영제](https://github.com/youngjeJO) | 팀원 |  |
+| [조영제](https://github.com/youngjeJO) | 팀원 | dual selector |
 | [이지수](https://github.com/mynameisjisoo) | 팀원 |  |
 
 
