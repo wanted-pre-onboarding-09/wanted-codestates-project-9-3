@@ -13,7 +13,7 @@ import {
 function Setting() {
   const {
     search,
-    singleMove,
+    moveOnlyOne,
     showItemCnt,
     itemSize,
     dashboardSize,
@@ -92,10 +92,10 @@ function Setting() {
             <span>하나씩만 옮기기</span>
             <button
               onClick={() => {
-                handleBoolean('singleMove');
+                handleBoolean('moveOnlyOne');
               }}
               type="button"
-              className={singleMove ? 'on' : 'off'}
+              className={moveOnlyOne ? 'on' : 'off'}
             />
           </StyledLi>
 

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   search: true,
-  singleMove: true,
+  moveOnlyOne: true,
   showItemCnt: true,
   itemSize: 'XS',
 
