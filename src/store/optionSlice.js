@@ -154,15 +154,3 @@ export const {
   moveSelected,
 } = optionSlice.actions;
 export default optionSlice.reducer;
-
-// availableOptions에서 검색하는 경우
-
-// if(selectedOptions.length>0){
-//   const EMOJIMENUS = emojiMenus // 또는 initialState에서 보관
-//   const 검색할 내용 = EMOJIMENUS-selectedOptions // 중복되는 내용 제거를 위해
-//   검색할 내용을 leftSearchItem로 필터링
-//   availableOptions에 상태 업데이트
-// } else{
-//   selectedOptions을 leftSearchItem로 필터링
-//   availableOptions에 상태 업데이트
-// }
