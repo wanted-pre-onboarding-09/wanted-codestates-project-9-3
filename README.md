@@ -22,10 +22,10 @@
 
 | 이름   | 직책 | 역할                 |
 | ----- | -- | -------------------- |
-| [유송현](https://github.com/ysh2987) | 팀장 |  |
+| [윤솔비](https://github.com/y-solb) | 팀장 | |
+| [유송현](https://github.com/ysh2987) | 팀원 |  |
 | [서한석](https://github.com/holystorySeo) | 팀원 | |
 | [손영산](https://github.com/zeromountain) | 팀원 | |
-| [윤솔비](https://github.com/y-solb) | 팀원 | |
 | [조영제](https://github.com/youngjeJO) | 팀원 |  |
 | [이지수](https://github.com/mynameisjisoo) | 팀원 |  |
 

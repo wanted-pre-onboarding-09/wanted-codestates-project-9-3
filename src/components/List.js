@@ -16,6 +16,14 @@ function List({ options, title, type, selectedSelection, section }) {
   const { moveOnlyOne } = useSelector(({ setting }) => ({
     moveOnlyOne: setting.moveOnlyOne,
   }));
+
+  /* type의 종류에 따른 searchItem을 가져온다. */
+  const searchItem = useSelector((state) =>
+    type === 'available'
+      ? state.option.leftSearchItem
+      : state.option.rightSearchItem
+  );
+
   const dispatch = useDispatch();
   const dragItemIndex = useRef(null);
   const dragOverItemIndex = useRef(null);
@@ -40,7 +48,6 @@ function List({ options, title, type, selectedSelection, section }) {
 
   // 단일 선택
   const normalSelection = (index) => {
-    console.log('normalSelection', index);
     if (selectedSelection.includes(index)) {
       // 같은 요소인 경우
       const selected = selectedSelection.filter((item) => item !== index);
@@ -84,15 +91,11 @@ function List({ options, title, type, selectedSelection, section }) {
   };
 
   const handleSelection = (e, id, index) => {
-    console.log('onClick');
-    console.log(id, index);
     if (e.ctrlKey || e.metaKey) {
-      console.log('ctrl || cmd');
       multiSelectionScatter(index);
     }
     // shift를 누르고 클릭 했을 때
     else if (e.shiftKey) {
-      console.log('shift');
       multiSelectionLinear(index);
     }
     // 그냥 클릭 했을 때
@@ -106,21 +109,29 @@ function List({ options, title, type, selectedSelection, section }) {
       <Title title={title} />
       <ListBox>
         {options
-          ? options.map((item, idx) => {
-              return (
-                <OptionsItem
-                  className={selectedSelection.includes(idx) ? 'selection' : ''}
-                  key={item.id}
-                  name={item.name}
-                  emoji={item.emoji}
-                  idx={idx}
-                  id={item.id}
-                  handleSelection={handleSelection}
-                  onDragStart={onDragStart}
-                  onDragEnter={onDragEnter}
-                />
-              );
-            })
+          ? options
+              .filter((option) => {
+                return searchItem === ''
+                  ? option
+                  : option.name.includes(searchItem);
+              })
+              .map((item, idx) => {
+                return (
+                  <OptionsItem
+                    className={
+                      selectedSelection.includes(idx) ? 'selection' : ''
+                    }
+                    key={item.id}
+                    name={item.name}
+                    emoji={item.emoji}
+                    idx={idx}
+                    id={item.id}
+                    handleSelection={handleSelection}
+                    onDragStart={onDragStart}
+                    onDragEnter={onDragEnter}
+                  />
+                );
+              })
           : null}
       </ListBox>
       <Counter total={options.length} selected={selectedSelection.length} />
@@ -163,6 +174,6 @@ const ListContainer = styled.div`
 `;
 
 const ListBox = styled.ul`
-  height: 100%;
+  list-style: none;
   overflow: auto;
 `;
