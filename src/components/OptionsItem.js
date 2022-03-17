@@ -25,7 +25,8 @@ function OptionsItem({
       onDragEnter={(e) => onDragEnter(e, idx)}
       draggable
     >
-      {emoji} {name}
+      <span>{emoji}</span>
+      <span>{name}</span>
     </Item>
   );
 }
@@ -44,7 +45,7 @@ OptionsItem.propTypes = {
 export default OptionsItem;
 
 const Item = styled.li`
-  padding: 10px 0 10px 15px;
+  padding: 10px 14px;
   border-bottom: 1px solid #bfbfbf;
   cursor: pointer;
   cursor: move;
@@ -63,5 +64,10 @@ const Item = styled.li`
   &.selection {
     background: red;
     opacity: 0.7;
+  }
+  span {
+    :first-child {
+      margin-right: 14px;
+    }
   }
 `;
