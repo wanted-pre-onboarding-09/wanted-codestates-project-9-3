@@ -1,3 +1,6 @@
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
 *,
 *::before,
 *::after {
@@ -8,6 +11,7 @@
   font: inherit;
   vertical-align: baseline;
 }
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -21,9 +25,10 @@ code {
     monospace;
 }
 
-li {
+ul, li {
   list-style: none;
 }
+
 button {
   border: none;
   margin: 0;
@@ -45,3 +50,7 @@ button::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
+
+`;
+
+export default GlobalStyle;
