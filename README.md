@@ -70,7 +70,7 @@ const filteredData = Object.keys(state.selectedOptions)
             obj[key] = state.selectedOptions[key];
             return obj;
           }, [])
-					.filter((el) => {
+	  .filter((el) => {
           return el != null;
         });
 ```
