@@ -106,13 +106,12 @@ const optionSlice = createSlice({
           .reduce((obj, key) => {
             obj[key] = state.selectedOptions[key];
             return obj;
-          }, []);
+          }, [])
+          .filter((el) => {
+            return el != null;
+          });
 
-        const updatedData = filteredData.filter((el) => {
-          return el != null;
-        });
-
-        state.selectedOptions = updatedData;
+        state.selectedOptions = filteredData;
         state.selectedSelection = [];
       } else if (action.payload === 'right') {
         const newData = state.availableSelection.map(
@@ -126,12 +125,12 @@ const optionSlice = createSlice({
           .reduce((obj, key) => {
             obj[key] = state.availableOptions[key];
             return obj;
-          }, []);
+          }, [])
+          .filter((el) => {
+            return el != null;
+          });
 
-        const updatedData = filteredData.filter((el) => {
-          return el != null;
-        });
-        state.availableOptions = updatedData;
+        state.availableOptions = filteredData;
         state.availableSelection = [];
       }
     },
