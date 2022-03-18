@@ -22,7 +22,7 @@
 | ----- | -- | -------------------- |
 | [윤솔비](https://github.com/y-solb) | 팀장 | ButtonTab |
 | [유송현](https://github.com/ysh2987) | 팀원 | option control |
-| [서한석](https://github.com/holystorySeo) | 팀원 | |
+| [서한석](https://github.com/holystorySeo) | 팀원 | SearchBar |
 | [손영산](https://github.com/zeromountain) | 팀원 | multi selection |
 | [조영제](https://github.com/youngjeJO) | 팀원 | dual selector |
 | [이지수](https://github.com/mynameisjisoo) | 팀원 | option control |
@@ -66,7 +66,7 @@
 
 - 왼쪽 셀렉터 검색 기능 알고리즘 구현(feat. 리덕스 리듀서 함수, 파일명: optionSlice.js, 리듀서: updateLeftSearch)
   - 오른쪽 셀렉터에 아무것도 없는 경우: 초기 옵션중을 filter함수로 순회하여 검색어 포함 여부 indexOf로 판별
-  - 오른쪽 셀렉터에 요소가 있는 경우: 1)초기 옵션에서 오른쪽 셀렉터 요소 필터 2)필터 후 남은 요소 중에서 검색어 포함 여부 indexOf로 판별\
+  - 오른쪽 셀렉터에 요소가 있는 경우: 1)초기 옵션에서 오른쪽 셀렉터 요소 필터 2)필터 후 남은 요소 중에서 검색어 포함 여부 indexOf로 판별
   - 함수 체이닝으로 변수 선언 줄이고 코드 간결화
 	  <details>
 		<summary>왼쪽 셀렉터 검색 기능 코드 자세히 보기</summary>
