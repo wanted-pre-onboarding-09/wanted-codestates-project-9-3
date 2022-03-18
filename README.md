@@ -54,7 +54,96 @@
 ### 유송현
 
 ### 서한석
+- 검색 컴포넌트 구현
+  - 듀얼 셀렉터 왼쪽/오른쪽 검색 기능에 모두 동일 컴포넌트 재사용
+  - section props로 구분
+  
+    ```jsx
+       <SearchBar section="left" />
+       <SearchBar section="right" />
+    ```
+    <img src="https://user-images.githubusercontent.com/87353284/158937078-899f6a8b-bbb8-43d8-952e-0b195b5c551b.gif" width="40%">
 
+- 왼쪽 셀렉터 검색 기능 알고리즘 구현(feat. 리덕스 리듀서 함수, 파일명: optionSlice.js, 리듀서: updateLeftSearch)
+  - 오른쪽 셀렉터에 아무것도 없는 경우: 초기 옵션중을 filter함수로 순회하여 검색어 포함 여부 indexOf로 판별
+  - 오른쪽 셀렉터에 요소가 있는 경우: 1)초기 옵션에서 오른쪽 셀렉터 요소 필터 2)필터 후 남은 요소 중에서 검색어 포함 여부 indexOf로 판별\
+  - 함수 체이닝으로 변수 선언 줄이고 코드 간결화
+	  <details>
+		<summary>왼쪽 셀렉터 검색 기능 코드 자세히 보기</summary>
+
+		```jsx
+		  availableOptions: emojiMenus, /* 왼쪽 셀럭터 옵션 */
+		  selectedOptions: [], /* 오른쪽 셀럭터 옵션 */
+
+		  updateLeftSearch(state, action) {
+		    // 오른쪽 옵션에 아무것도 없는 경우
+		    if (state.selectedOptions.length === 0) {
+		      state.availableOptions = [
+			  ...emojiMenus.filter((option) => {
+			    return option.name.indexOf(action.payload) !== -1;
+			  }),
+			];
+		    } else {
+		      /* 오른쪽 옵션에 요소가 있는 경우 */
+			const newArr = emojiMenus
+			  .filter((option) => {
+			    return (
+			      state.selectedOptions
+				.map((el) => {
+				  return el.name;
+				})
+				.indexOf(option.name) === -1
+			    );
+			  })
+			  .filter((option) => {
+			    return option.name.indexOf(action.payload) !== -1;
+			  });
+
+			state.availableOptions = [...newArr];
+		      }
+		    },
+		```
+	  </details>
+
+- 오른쪽 셀렉터 검색 기능 알고리즘 구현(feat. 리덕스 리듀서 함수, 파일명: optionSlice.js, 리듀서: updateRightSearch)
+  - 왼쪽 셀렉터에 아무것도 없는 경우: 오른쪽 셀렉터를 filter함수로 순회하여 검색어 포함 여부 indexOf로 판별
+  - 왼쪽 셀렉터에 요소가 있는 경우: 1)초기 옵션에서 왼쪽 셀렉터 요소 필터 2)필터 후 남은 요소 중에서 검색어 포함 여부 indexOf로 판별
+  - 함수 체이닝으로 변수 선언 줄이고 코드 간결화
+	  <details>
+		<summary>오른쪽 셀렉터 검색 기능 코드 자세히 보기</summary>
+
+		```jsx
+		  availableOptions: emojiMenus, /* 왼쪽 셀럭터 옵션 */
+		  selectedOptions: [], /* 오른쪽 셀럭터 옵션 */
+
+		   updateRightSearch(state, action) {
+		      // 왼쪽 옵션에 아무것도 없는 경우
+		      if (state.availableOptions.length === 0) {
+			state.selectedOptions = [
+			  ...emojiMenus.filter((option) => {
+			    return option.name.indexOf(action.payload) !== -1;
+			  }),
+			];
+		      } else {
+			const newArr = emojiMenus
+			  .filter((option) => {
+			    return (
+			      state.availableOptions
+				.map((el) => {
+				  return el.name;
+				})
+				.indexOf(option.name) === -1
+			    );
+			  })
+			  .filter((option) => {
+			    return option.name.indexOf(action.payload) !== -1;
+			  });
+
+			state.selectedOptions = [...newArr];
+		      }
+		    },
+		```
+	  </details>
 ### 손영산
 
 ### 윤솔비
