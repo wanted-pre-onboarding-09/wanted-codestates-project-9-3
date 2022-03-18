@@ -65,6 +65,7 @@ const Item = styled.li`
     }
   }};
   &.selection {
+    color: #696969;
     background-color: #f3f3f3;
   }
   span {
