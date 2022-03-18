@@ -20,7 +20,7 @@
 
 | 이름   | 직책 | 역할                 |
 | ----- | -- | -------------------- |
-| [윤솔비](https://github.com/y-solb) | 팀장 | |
+| [윤솔비](https://github.com/y-solb) | 팀장 | ButtonTab |
 | [유송현](https://github.com/ysh2987) | 팀원 | option control |
 | [서한석](https://github.com/holystorySeo) | 팀원 | |
 | [손영산](https://github.com/zeromountain) | 팀원 | |
@@ -31,7 +31,6 @@
 ## 기술 스택
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
@@ -59,6 +58,22 @@
 ### 손영산
 
 ### 윤솔비
+- ButtonTab에서 클릭된 버튼에 따라 초기화, 모든 아이템 이동, 선택된 아이템만 이동하도록 구현했습니다.
+- 초기화 클릭 시 availableOptions에 emojiMenus를 넣어주고 selectedOptions에 빈 배열을 넣어 초기화시켜줬습니다.
+- 모든 아이템 이동을 클릭 시 spread 연산자를 통해 availableOptions와 selectedOptions 배열을 병합해 줬습니다.
+- 선택된 아이템만 이동 클릭 시 availableSelection 또는 selectedSelection에 선택된 아이템들의 index값이 저장됩니다. 이 index값을 통해 선택된 아이템들의 배열을 만들고 이동하고자 하는 위치의 배열과 병합해 줬습니다. 기존의 데이터에서는 선택된 아이템들을 제거해 줘야 하기 때문에 아래와 같이 구현했습니다.
+
+```jsx
+const filteredData = Object.keys(state.selectedOptions)
+          .filter((key) => !state.selectedSelection.includes(Number(key)))
+          .reduce((obj, key) => {
+            obj[key] = state.selectedOptions[key];
+            return obj;
+          }, [])
+					.filter((el) => {
+          return el != null;
+        });
+```
 
 ### 조영제
 
