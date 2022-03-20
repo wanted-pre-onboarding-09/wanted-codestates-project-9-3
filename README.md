@@ -146,6 +146,88 @@
 	  </details>
 ### 손영산
 
+- 단일 클릭
+    - 선택한 요소가 선택된 요소의 인덱스가 동일한지에 따라
+    - 동일한 경우 - 선택된 요소 해제
+    - 동일하지 않은 경우 - 기존 선택된 요소 해제하고 새로 선택된 요소 선택
+- ctrl, cmd 클릭
+    - moveOnlyOne 의 상태에 따라서 실행 여부 결정
+    - 누적 선택이 가능하므로 같은 요소를 선택하지 않았다면 기존 선택된 요소들과 새로 선택된 요소를 병합
+- shift 클릭
+    - moveOnlyOne의 상태에 따라서 실행 여부 결정
+    - 선택된 요소의 첫 요소와 끝 요소를 기준으로 영역 결정
+        - 선택된 요소가 마지막 요소의 인덱스보다 큰 경우 마지막 요소부터 선택된 요소까지 선택 영역 지정하고 추가
+        - 선택된 요소가 첫번째 요소의 인덱스보다 큰 경우 첫번째 요소부터 선택된 요소까지 선택 영역 지정하고 추가
+        - 선택된 요소가 첫번째 요소의 인덱보다 작은 경우 첫번째 요소부터 선택된 요소까지 선택 영역 지정하고 추가
+- 인덱스를 기반으로 등록하기 때문에 정렬 상태가 중요하다고 생각되어서 리듀서에서 중복된 요소를 제거하고 오름차순으로 정렬되도록 설정
+- 다중 선택을 할 때 엣지 케이스가 많았는데 모든 상황에 대응하지 못했던 부분이 아쉬웠고, 알고리즘적인 부분에서 역량이 부족하다고 생각되었기 때문에 앞으로 보완해 나갈 계획
+
+```js
+// 단일 선택
+  const normalSelection = (index) => {
+    if (selectedSelection.includes(index)) {
+      // 같은 요소인 경우
+      const selected = selectedSelection.filter((item) => item !== index);
+      dispatch(setSelection({ type, index: selected }));
+    } else {
+      // 다른 요소인 경우
+      dispatch(setSelection({ type, index: [index] }));
+    }
+  };
+
+  // 중복 선택 - cmd, ctrl
+  const multiSelectionScatter = (index) => {
+    if (moveOnlyOne) return;
+    if (selectedSelection.includes(index)) {
+      const selected = selectedSelection.filter((item) => item !== index);
+      dispatch(setSelection({ type, index: selected }));
+    } else {
+      const selected = [...selectedSelection, index];
+      dispatch(setSelection({ type, index: selected }));
+    }
+  };
+
+  // 중복 선택 - shift
+  const multiSelectionLinear = (index) => {
+    if (moveOnlyOne) return;
+
+    let selected = [];
+    const { length } = selectedSelection;
+    const start = length === 0 ? 0 : selectedSelection[0];
+    const end = selectedSelection[length - 1];
+
+    if (end < index) {
+      for (let i = end; i <= index; i += 1) {
+        selected.push(i);
+      }
+      selected = [...selectedSelection, ...selected];
+    } else if (start < index) {
+      for (let i = start; i <= index; i += 1) {
+        selected.push(i);
+      }
+      selected = [...selectedSelection, ...selected];
+    } else {
+      for (let i = start - 1; i >= index; i -= 1) {
+        selected.unshift(i);
+      }
+      selected = [...selected, ...selectedSelection];
+    }
+    dispatch(setSelection({ type, index: selected }));
+  };
+```
+
+```js
+// 선택 영역 설정 리듀서
+setSelection(state, { payload: { type, index } }) {
+      const set = new Set(index); // 중복 요소 제거
+      if (type === 'available') {
+        state.availableSelection = [...set].sort((a, b) => a - b);
+      } else {
+        state.selectedSelection = [...set].sort((a, b) => a - b);
+      }
+    },
+```
+
 ### 윤솔비
 - ButtonTab에서 클릭된 버튼에 따라 초기화, 모든 아이템 이동, 선택된 아이템만 이동하도록 구현했습니다.
 - 초기화 클릭 시 availableOptions에 emojiMenus를 넣어주고 selectedOptions에 빈 배열을 넣어 초기화시켜줬습니다.
