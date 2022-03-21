@@ -249,7 +249,10 @@ const filteredData = Object.keys(state.selectedOptions)
 ### 조영제
 
 ### 이지수
-
+- 소메뉴의 버튼 클릭에 따라 reducer를 통해 on, off 를 변경하고 `title`이나 `itemSize` 등 사용자가 입력하는 값도 redux에 저장했습니다.
+- 제목을 변경하는 경우 왼쪽 셀렉터와 오른쪽 셀렉터 모두 동일한 `Title` 컴포넌트를 재사용하기 때문에 사용자가 입력한 값을 `titleInput`이라는 객체 형태로 store에 저장했습니다.
+  최상위인 `App.js`에서는 store의 `titleInput`객체를 가져오고 `List` 컴포넌트로는 `titleInput.available`과 `titleInput.selected` 를 나누어서 전달하여 각각 맞는 제목이 보여지게 했습니다.
+- 아이템 크기 조절은 `OptionItem` 컴포넌트에서 redux store의 `itemSize`를 호출하고 `styled-component`의 `props`로 전달하여 `props`에 따라 `font-size`를 변경했습니다.
 
 ## 커밋 컨벤션
 
