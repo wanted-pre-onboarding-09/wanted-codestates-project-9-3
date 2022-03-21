@@ -247,7 +247,32 @@ const filteredData = Object.keys(state.selectedOptions)
 ```
 
 ### 조영제
+- drag & drop을 사용한 아이템 순서 이동을 구현했습니다. 구현 과정에서 item의 index를 저장할 때 useState가 아닌 hook에서 component 안에 변수를 조회나 수정할 수있는 useRef의 사용법을 알게 되었고 drag event가 발생하면서 item의 변화하는 index 값을 리랜더 되지 않고 받을 수 있었습니다.
+- drag & drop을 구현하면서 하나의 에러가 있었는데 dual selector를 페이지를 구성할 때 list component를 재사용하는 하게 되었는데 이 과정에서 onDragEnter가 다른 구역에서도 함수를 호출 해 순서를 바꾸게 되는 에러였습니다. 처음에는 재사용된 컴포넌트여서 생긴 문제라 생각하고 section마다 다른 함수를 주기도하고, 새로운 컴포넌트를 만들기도 했었지만 어떤 방식이던 결국 dragEnter가 양 옆에서 동일하게 적용이 되고 있는것을 발견했고 useRef를 이용해 boolaen 값을 가진 변수를 만들어 dragStart와 mouseleave에 해당 component에서 true일 때만 작동을 하고 false 일 때는 return을 해 에러를 고칠 수 있었습니다.
+-   
+```
 
+
+  const onDragEnter = (e, index) => {
+    if (selectContainer.current) {
+      dragOverItemIndex.current = index;	//drag 중 위치를 알려주는 index
+      const copyListItems = [...options];	//초기 배열 값 복사
+      const dragItemContent = copyListItems[dragItemIndex.current];	//dragStart한 item
+      copyListItems.splice(dragItemIndex.current, 1);	//dragStart한 item 제거
+      copyListItems.splice(dragOverItemIndex.current, 0, dragItemContent);	//dragStart한 item 추가
+      dragItemIndex.current = dragOverItemIndex.current; 
+      dragOverItemIndex.current = null; 	// 순서가 하나씩 보이게 만들 수 있도록 index값을 계속 넘겨주고 지워줌
+      if (section === 'left') {
+        dispatch(changeAvailableOptions(copyListItems));
+      } else {
+        dispatch(changeSelectedOptions(copyListItems));
+      }
+    } else {
+      return {};
+    }
+  };
+
+```
 ### 이지수
 - 소메뉴의 버튼 클릭에 따라 reducer를 통해 on, off 를 변경하고 `title`이나 `itemSize` 등 사용자가 입력하는 값도 redux에 저장했습니다.
 - 제목을 변경하는 경우 왼쪽 셀렉터와 오른쪽 셀렉터 모두 동일한 `Title` 컴포넌트를 재사용하기 때문에 사용자가 입력한 값을 `titleInput`이라는 객체 형태로 store에 저장했습니다.
